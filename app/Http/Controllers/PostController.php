@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -11,9 +12,14 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     public function index()
     {
-        return view('post/createe');
+        return view('');
     }
 
     /**
@@ -34,7 +40,25 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'day' => ['required', 'date'],
+            'selection' => ['required', 'string'],
+            'main' => ['required', 'string'],
+            'sub' => ['required', 'string'],
+            'amount' => ['required', 'integer' , 'min:1'],
+            'comment' => ['nullable', 'string'],
+        ]);
+
+        Post::create([
+            'day' => $request->day,
+            'selection' => $request->selection,
+            'main' => $request->main,
+            'sub' => $request->sub,
+            'amount' => $request->amount,
+            'comment' => $request->comment,
+        ]);
+
+        return redirect()->route('post.create');
     }
 
     /**

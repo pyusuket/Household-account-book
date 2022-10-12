@@ -130,35 +130,36 @@
     </x-slot>
 
     <section class="text-gray-600 body-font relative ">
-    <div class="container px-5 py-24 mx-auto">
-        <div class="flex flex-col text-center w-full mb-12">
+    <div class="container px-5 py-12 mx-auto">
+        <div class="flex flex-col text-center w-full mb-2">
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">入力フォーム</h1>
         </div>
         <div class="lg:w-1/2 md:w-2/3 mx-auto">
+            <x-validation-errors class="mb-4" :errors="$errors" />
             <form method="POST" action="{{ route('post.store') }}">
             @csrf
             <div class="flex flex-col -m-2">
                 <div class="p-2 w-full">
                     <div class="relative">
                         <label for="name" class="leading-7 text-sm text-gray-600">■日付：</label>
-                        <input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        <input type="date" id="date" name="day" value="<?php echo date('Y-m-d'); ?>" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                     </div>
                 </div>
                 <div class="p-2 w-full">
                     <div class="relative">
                         <label for="name" class="leading-7 text-sm text-gray-600">■収支：</label>
-                        <select id="SEL1" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        <select id="SEL1" name="selection" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             <option value="" disabled selected style=display:none;>選択してください</option>
-                            <option value="収入">収入</option>
-                            <option value="支出">支出</option>
+                            <option value="1">収入</option>
+                            <option value="2">支出</option>
                         </select>
                     </div>
                 </div>
                 <div class="p-2 w-full">
                     <div class="relative">
                         <label for="name" class="leading-7 text-sm text-gray-600">■大項目：</label>
-                        <select id="SEL2" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                            <optgroup label="収入" >
+                        <select id="SEL2" name="main" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <optgroup label="1" >
                                 <option value="" disabled selected style="display:none;">選択してください</option>
                                             @php
                                                 foreach ( $Income_mains as $key => $Income_mains ) {
@@ -166,7 +167,7 @@
                                                     }
                                             @endphp
                             </optgroup>
-                            <optgroup label="支出">
+                            <optgroup label="2">
                                 <option value="" disabled selected style="display:none;">選択してください</option>
                                             @php
                                                 foreach ( $expenditure_mains as $key => $expenditure_mains ) {
@@ -179,8 +180,8 @@
                 </div>
                 <div class="p-2 w-full">
                     <div class="relative">
-                        <label for="name" class="leading-7 text-sm text-gray-600">■中項目：</label>
-                        <select id="SEL3" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        <label for="name" class="leading-7 text-sm text-gray-600 ">■中項目：</label>
+                        <select id="SEL3" name="sub" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             {{-- 収入 --}}
                             <optgroup label="x0">
                             <option value="" disabled selected style="display:none;">選択してください</option>
@@ -414,19 +415,20 @@
                 <div class="p-2 w-full">
                     <div class="relative">
                         <label for="name" class="leading-7 text-sm text-gray-600">■金額：</label>
-                        <input type="number" id="amount" name="amount" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        <input type="number" id="amount" name="amount" value="{{ old('amount') }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                     </div>
                 </div>
                 <div class="p-2 w-full">
                         <div class="relative">
                             <label for="message" class="leading-7 text-sm text-gray-600">■コメント：</label>
-                            <textarea id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                            <textarea id="message" name="comment" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ old('comment') }}</textarea>
                         </div>
                 </div>
             </div>
                     <div class="p-2 w-full">
-                        <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">送信</button>
+                        <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">送信</button>
                     </div>
+            </form>
         </div>
     </div>
     </section>

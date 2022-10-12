@@ -133,4 +133,11 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+
+    'attributes' => [
+        'selection' => '収支',
+        'main' => '大項目',
+        'sub' => '中項目',
+        'amount' => '金額'
+    ],
 ];
