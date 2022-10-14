@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
                         家計簿入力
                     </x-nav-link>
+                    <x-nav-link :href="route('post.index')" :active="request()->routeIs('post.index')">
+                        投稿一覧
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -71,6 +74,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('post.create')" :active="request()->routeIs('post.create')">
                 家計簿入力
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('post.index')" :active="request()->routeIs('post.index')">
+                投稿一覧
             </x-responsive-nav-link>
         </div>
 
