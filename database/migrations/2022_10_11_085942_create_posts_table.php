@@ -20,8 +20,9 @@ return new class extends Migration
             $table->string('main');
             $table->string('sub');
             $table->integer('amount');
-            $table->string('comment');
+            $table->string('comment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

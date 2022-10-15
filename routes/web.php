@@ -21,6 +21,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('post',PostController::class);
+Route::prefix('post')->middleware(['auth', 'verified'])->group(function () {
+        Route::get('index', [ShopController::class, 'index'])->name('post.index');
+        Route::get('edit/{id}', [ShopController::class, 'edit'])->name('post.edit');
+        Route::post('update/{id}', [ShopController::class, 'update'])->name('post.update');
+    });
+
+Route::resource('post',PostController::class)->except(['show']);
 
 require __DIR__.'/auth.php';

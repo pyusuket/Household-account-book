@@ -81,7 +81,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('post.edit', compact('post'));
     }
 
     /**
@@ -93,7 +95,16 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->day = $request->day;
+        $post->selection = $request->selection;
+        $post->main = $request->main;
+        $post->sub = $request->sub;
+        $post->amount = $request->amount;
+        $post->comment = $request->comment;
+        $post->save();
+
+        return redirect()->route('post.index');
     }
 
     /**
@@ -104,6 +115,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::findOrFail($id)->delete();
+        return redirect()->route('post.index');
     }
 }
