@@ -27,6 +27,6 @@ Route::prefix('post')->middleware(['auth', 'verified'])->group(function () {
         Route::post('update/{id}', [ShopController::class, 'update'])->name('post.update');
     });
 
-Route::resource('post',PostController::class)->except(['show']);
+Route::resource('post',PostController::class);
 
 require __DIR__.'/auth.php';
