@@ -132,305 +132,306 @@
 
     <section class="text-gray-600 body-font relative ">
     <div class="container px-5 py-12 mx-auto">
-        <div class="flex flex-col text-center w-full mb-2">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">入力フォーム</h1>
-        </div>
         <div class="lg:w-1/2 md:w-2/3 mx-auto">
-            <x-flash-message status="session('status')"/>
-            <x-validation-errors class="mb-4" :errors="$errors" />
-            <form method="POST" action="{{ route('post.store') }}">
-            @csrf
-            <div class="flex flex-col -m-2">
-                <div class="p-2 w-full">
-                    <div class="relative">
-                        <label for="name" class="leading-7 text-sm text-gray-600">■日付：</label>
-                        <input type="date" id="date" name="day" value="<?php echo date('Y-m-d'); ?>" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                    </div>
-                </div>
-                <div class="p-2 w-full">
-                    <div class="relative">
-                        <label for="name" class="leading-7 text-sm text-gray-600">■収支：</label>
-                        <select id="SEL1" name="selection" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                            <option value="" disabled selected style=display:none;>選択してください</option>
-                            <option value="収入">収入</option>
-                            <option value="支出">支出</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="p-2 w-full">
-                    <div class="relative">
-                        <label for="name" class="leading-7 text-sm text-gray-600">■大項目：</label>
-                        <select id="SEL2" name="main" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                            <optgroup label="収入" >
-                                <option value="" disabled selected style="display:none;">選択してください</option>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="md:p-6 bg-white border-b border-gray-200">
+                    <x-flash-message status="session('status')"/>
+                    <x-validation-errors class="mb-4" :errors="$errors" />
+                    <form method="POST" action="{{ route('post.store') }}">
+                    @csrf
+                    <div class="flex flex-col -m-2">
+                        <div class="p-2 w-full">
+                            <div class="relative">
+                                <label for="name" class="leading-7 text-sm text-gray-600">■日付：</label>
+                                <input type="date" id="date" name="day" value="<?php echo date('Y-m-d'); ?>" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-full">
+                            <div class="relative">
+                                <label for="name" class="leading-7 text-sm text-gray-600">■収支：</label>
+                                <select id="SEL1" name="selection" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    <option value="" disabled selected style=display:none;>選択してください</option>
+                                    <option value="収入">収入</option>
+                                    <option value="支出">支出</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="p-2 w-full">
+                            <div class="relative">
+                                <label for="name" class="leading-7 text-sm text-gray-600">■大項目：</label>
+                                <select id="SEL2" name="main" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    <optgroup label="収入" >
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                                    @php
+                                                        foreach ( $Income_mains as $key => $Income_mains ) {
+                                                                echo '<option value="' . $key . '">' . $Income_mains . '</option>';
+                                                            }
+                                                    @endphp
+                                    </optgroup>
+                                    <optgroup label="支出">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                                    @php
+                                                        foreach ( $expenditure_mains as $key => $expenditure_mains ) {
+                                                                echo '<option value="' . $key . '">' . $expenditure_mains . '</option>';
+                                                            }
+                                                    @endphp
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="p-2 w-full">
+                            <div class="relative">
+                                <label for="name" class="leading-7 text-sm text-gray-600 ">■中項目：</label>
+                                <select id="SEL3" name="sub" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    {{-- 収入 --}}
+                                    <optgroup label="利子">
+                                    <option value="" disabled selected style="display:none;">選択してください</option>
                                             @php
-                                                foreach ( $Income_mains as $key => $Income_mains ) {
-                                                        echo '<option value="' . $key . '">' . $Income_mains . '</option>';
-                                                    }
+                                                    foreach ( $Interest_rates as $key => $Interest_rates ) {
+                                                            echo '<option value="' . $key . '">' . $Interest_rates . '</option>';
+                                                        }
                                             @endphp
-                            </optgroup>
-                            <optgroup label="支出">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
+                                    </optgroup>
+                                    <optgroup label="配当">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
                                             @php
-                                                foreach ( $expenditure_mains as $key => $expenditure_mains ) {
-                                                        echo '<option value="' . $key . '">' . $expenditure_mains . '</option>';
-                                                    }
+                                                    foreach ( $dividends as $key => $dividends ) {
+                                                            echo '<option value="' . $key . '">' . $dividends . '</option>';
+                                                        }
                                             @endphp
-                            </optgroup>
-                        </select>
-                    </div>
-                </div>
-                <div class="p-2 w-full">
-                    <div class="relative">
-                        <label for="name" class="leading-7 text-sm text-gray-600 ">■中項目：</label>
-                        <select id="SEL3" name="sub" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                            {{-- 収入 --}}
-                            <optgroup label="利子">
-                            <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $Interest_rates as $key => $Interest_rates ) {
-                                                    echo '<option value="' . $key . '">' . $Interest_rates . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="配当">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $dividends as $key => $dividends ) {
-                                                    echo '<option value="' . $key . '">' . $dividends . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="不動産">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $real_estates as $key => $real_estates ) {
-                                                    echo '<option value="' . $key . '">' . $real_estates . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="事業">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $businesses as $key => $businesses ) {
-                                                    echo '<option value="' . $key . '">' . $businesses . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="給与">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $salaries as $key => $salaries ) {
-                                                    echo '<option value="' . $key . '">' . $salaries . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="退職">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $retirements as $key => $retirements ) {
-                                                    echo '<option value="' . $key . '">' . $retirements . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="山林">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $forest as $key => $forest ) {
-                                                    echo '<option value="' . $key . '">' . $forest . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="譲渡">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $assignments as $key => $assignments ) {
-                                                    echo '<option value="' . $key . '">' . $assignments . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="一時">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $temporarise as $key => $temporarise ) {
-                                                    echo '<option value="' . $key . '">' . $temporarise . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="雑">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $miscellanies as $key => $miscellanies ) {
-                                                    echo '<option value="' . $key . '">' . $miscellanies . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
+                                    </optgroup>
+                                    <optgroup label="不動産">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $real_estates as $key => $real_estates ) {
+                                                            echo '<option value="' . $key . '">' . $real_estates . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="事業">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $businesses as $key => $businesses ) {
+                                                            echo '<option value="' . $key . '">' . $businesses . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="給与">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $salaries as $key => $salaries ) {
+                                                            echo '<option value="' . $key . '">' . $salaries . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="退職">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $retirements as $key => $retirements ) {
+                                                            echo '<option value="' . $key . '">' . $retirements . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="山林">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $forest as $key => $forest ) {
+                                                            echo '<option value="' . $key . '">' . $forest . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="譲渡">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $assignments as $key => $assignments ) {
+                                                            echo '<option value="' . $key . '">' . $assignments . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="一時">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $temporarise as $key => $temporarise ) {
+                                                            echo '<option value="' . $key . '">' . $temporarise . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="雑">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $miscellanies as $key => $miscellanies ) {
+                                                            echo '<option value="' . $key . '">' . $miscellanies . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
 
-                            {{-- 支出 --}}
-                            <optgroup label="食費">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $food_costs as $key => $food_costs ) {
-                                                    echo '<option value="' . $key . '">' . $food_costs . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="日用品">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $daily_use_items as $key => $daily_use_items ) {
-                                                    echo '<option value="' . $key . '">' . $daily_use_items . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="趣味・娯楽">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $hobbies_amusements as $key => $hobbies_amusements ) {
-                                                    echo '<option value="' . $key . '">' . $hobbies_amusements . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="交際費">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $entertainment_expenses as $key => $entertainment_expenses ) {
-                                                    echo '<option value="' . $key . '">' . $entertainment_expenses . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="衣服・美容">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $clothing_beauty as $key => $clothing_beauty ) {
-                                                    echo '<option value="' . $key . '">' . $clothing_beauty . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="健康・医療">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $health_medical as $key => $health_medical ) {
-                                                    echo '<option value="' . $key . '">' . $health_medical . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="自動車">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $automobile as $key => $automobile ) {
-                                                    echo '<option value="' . $key . '">' . $automobile . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="自己投資">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $self_investments as $key => $self_investments ) {
-                                                    echo '<option value="' . $key . '">' . $self_investments . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="教育・養育">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $education as $key => $education ) {
-                                                    echo '<option value="' . $key . '">' . $education . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="その他変動費">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $variable_costs as $key => $variable_costs) {
-                                                    echo '<option value="' . $key . '">' . $variable_costs . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="住居費">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $residence as $key => $residence ) {
-                                                    echo '<option value="' . $key . '">' . $residence . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="水道・光熱費">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $water_utilities as $key => $water_utilities ) {
-                                                    echo '<option value="' . $key . '">' . $water_utilities . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="通信費">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $communication_cost as $key => $communication_cost ) {
-                                                    echo '<option value="' . $key . '">' . $communication_cost . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="税">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $taxes as $key => $taxes ) {
-                                                    echo '<option value="' . $key . '">' . $taxes . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="社会保障費">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $social_security as $key => $social_security ) {
-                                                    echo '<option value="' . $key . '">' . $social_security . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="保険">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $insurance as $key => $insurance ) {
-                                                    echo '<option value="' . $key . '">' . $insurance . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="サブスク">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $subscription as $key => $subscription ) {
-                                                    echo '<option value="' . $key . '">' . $subscription . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                            <optgroup label="その他固定費">
-                                <option value="" disabled selected style="display:none;">選択してください</option>
-                                    @php
-                                            foreach ( $fixed_cost as $key => $fixed_cost ) {
-                                                    echo '<option value="' . $key . '">' . $fixed_cost . '</option>';
-                                                }
-                                    @endphp
-                            </optgroup>
-                        </select>
+                                    {{-- 支出 --}}
+                                    <optgroup label="食費">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $food_costs as $key => $food_costs ) {
+                                                            echo '<option value="' . $key . '">' . $food_costs . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="日用品">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $daily_use_items as $key => $daily_use_items ) {
+                                                            echo '<option value="' . $key . '">' . $daily_use_items . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="趣味・娯楽">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $hobbies_amusements as $key => $hobbies_amusements ) {
+                                                            echo '<option value="' . $key . '">' . $hobbies_amusements . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="交際費">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $entertainment_expenses as $key => $entertainment_expenses ) {
+                                                            echo '<option value="' . $key . '">' . $entertainment_expenses . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="衣服・美容">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $clothing_beauty as $key => $clothing_beauty ) {
+                                                            echo '<option value="' . $key . '">' . $clothing_beauty . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="健康・医療">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $health_medical as $key => $health_medical ) {
+                                                            echo '<option value="' . $key . '">' . $health_medical . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="自動車">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $automobile as $key => $automobile ) {
+                                                            echo '<option value="' . $key . '">' . $automobile . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="自己投資">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $self_investments as $key => $self_investments ) {
+                                                            echo '<option value="' . $key . '">' . $self_investments . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="教育・養育">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $education as $key => $education ) {
+                                                            echo '<option value="' . $key . '">' . $education . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="その他変動費">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $variable_costs as $key => $variable_costs) {
+                                                            echo '<option value="' . $key . '">' . $variable_costs . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="住居費">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $residence as $key => $residence ) {
+                                                            echo '<option value="' . $key . '">' . $residence . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="水道・光熱費">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $water_utilities as $key => $water_utilities ) {
+                                                            echo '<option value="' . $key . '">' . $water_utilities . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="通信費">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $communication_cost as $key => $communication_cost ) {
+                                                            echo '<option value="' . $key . '">' . $communication_cost . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="税">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $taxes as $key => $taxes ) {
+                                                            echo '<option value="' . $key . '">' . $taxes . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="社会保障費">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $social_security as $key => $social_security ) {
+                                                            echo '<option value="' . $key . '">' . $social_security . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="保険">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $insurance as $key => $insurance ) {
+                                                            echo '<option value="' . $key . '">' . $insurance . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="サブスク">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $subscription as $key => $subscription ) {
+                                                            echo '<option value="' . $key . '">' . $subscription . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                    <optgroup label="その他固定費">
+                                        <option value="" disabled selected style="display:none;">選択してください</option>
+                                            @php
+                                                    foreach ( $fixed_cost as $key => $fixed_cost ) {
+                                                            echo '<option value="' . $key . '">' . $fixed_cost . '</option>';
+                                                        }
+                                            @endphp
+                                    </optgroup>
+                                </select>
+                                </div>
+                            </div>
+                        <div class="p-2 w-full">
+                            <div class="relative">
+                                <label for="name" class="leading-7 text-sm text-gray-600">■金額：</label>
+                                <input type="number" id="amount" name="amount" value="{{ old('amount') }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <div class="p-2 w-full">
+                                <div class="relative">
+                                    <label for="message" class="leading-7 text-sm text-gray-600">■コメント：</label>
+                                    <textarea id="message" name="comment" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ old('comment') }}</textarea>
+                                </div>
                         </div>
                     </div>
-                <div class="p-2 w-full">
-                    <div class="relative">
-                        <label for="name" class="leading-7 text-sm text-gray-600">■金額：</label>
-                        <input type="number" id="amount" name="amount" value="{{ old('amount') }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                    </div>
-                </div>
-                <div class="p-2 w-full">
-                        <div class="relative">
-                            <label for="message" class="leading-7 text-sm text-gray-600">■コメント：</label>
-                            <textarea id="message" name="comment" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ old('comment') }}</textarea>
-                        </div>
+                            <div class="p-2 w-full">
+                                <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">送信</button>
+                            </div>
+                    </form>
                 </div>
             </div>
-                    <div class="p-2 w-full">
-                        <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">送信</button>
-                    </div>
-            </form>
         </div>
     </div>
     </section>
