@@ -136,6 +136,7 @@
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">入力フォーム</h1>
         </div>
         <div class="lg:w-1/2 md:w-2/3 mx-auto">
+            <x-flash-message status="session('status')"/>
             <x-validation-errors class="mb-4" :errors="$errors" />
             <form method="POST" action="{{ route('post.store') }}">
             @csrf

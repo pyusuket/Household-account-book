@@ -59,7 +59,7 @@ class PostController extends Controller
             'comment' => $request->comment,
         ]);
 
-        return redirect()->route('post.create');
+        return redirect()->route('post.create')->with(['message' => '投稿が完了しました。', 'status' => 'info']);
     }
 
     /**
@@ -104,7 +104,7 @@ class PostController extends Controller
         $post->comment = $request->comment;
         $post->save();
 
-        return redirect()->route('post.index');
+        return redirect()->route('post.index')->with(['message' => '投稿を更新しました。', 'status' => 'info']);
     }
 
     /**
@@ -116,6 +116,6 @@ class PostController extends Controller
     public function destroy($id)
     {
         Post::findOrFail($id)->delete();
-        return redirect()->route('post.index');
+        return redirect()->route('post.index')->with(['message' => '投稿を削除しました。', 'status' => 'alert']);
     }
 }
