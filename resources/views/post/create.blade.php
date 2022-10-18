@@ -125,12 +125,12 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-200 leading-tight">
             家計簿入力
         </h2>
     </x-slot>
 
-    <section class="text-gray-600 body-font relative ">
+    <section class="text-gray-600 body-font relative bg-gray-500">
     <div class="container px-5 py-12 mx-auto">
         <div class="lg:w-1/2 md:w-2/3 mx-auto">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
