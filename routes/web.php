@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::prefix('post')->middleware(['auth', 'verified'])->group(function () {
         Route::get('index', [ShopController::class, 'index'])->name('post.index');
@@ -28,5 +31,7 @@ Route::prefix('post')->middleware(['auth', 'verified'])->group(function () {
     });
 
 Route::resource('post',PostController::class);
+
+Route::get('/dashboard/{year?}/{month?}', [DashboardController::class, 'index'])->name('dashboard');
 
 require __DIR__.'/auth.php';
